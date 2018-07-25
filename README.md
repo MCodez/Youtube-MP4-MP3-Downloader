@@ -13,16 +13,15 @@ Script is written in Python3. ver 3.6+
 Open the directory where you have saved the script. Run the script with a extra argument i.e. searchterm [which you want to search on YouTube]
 Command would be in this format:
 
-``` console 
-lalit@con: python downloader.py "7 years"
+```console 
+python downloader.py "7 years"
 ```
 
 Running this command, will search for the term on YouTube and will show Top 5 searches numbered from 1 to 5.
 Enter the number corressponding to the MP4 or MP3 you want to download with a term i.e. Video or Music.
 This command would be in this format { for downloading music of 1st searched item }
 
-```
-console
+```console
 1 music
 ```
 
