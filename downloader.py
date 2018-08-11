@@ -10,6 +10,13 @@ import youtube_dl
 import urllib.parse
 from bs4 import BeautifulSoup
 
+def check_internet():
+    try:
+        urllib.request.urlopen('http://216.58.192.142', timeout=1)
+        return True
+    except : 
+        return False
+    
 def youtube(searchterm):
     query=urllib.parse.quote(searchterm)
     url="https://www.youtube.com/results?search_query="+query
@@ -24,8 +31,13 @@ def youtube(searchterm):
             names.append(vid['title'])
         except:
             names.append("")
-                
-    return (links[:5],names[:5])
+    if len(links)>=5:
+        return (links[:5],names[:5])
+    elif len(links)==0:
+        print ("No Search Results")
+        exit(0)
+    else:
+        return (links,names)
 
 def download_mp3(url):
     ydl_opts = {
@@ -33,7 +45,7 @@ def download_mp3(url):
             'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
-            'preferredquality': '192',
+            'preferredquality': '320',
             }],
     }
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
@@ -54,6 +66,9 @@ if __name__ == "__main__":
     import sys
     arguments=sys.argv
     searchterm=arguments[1]
+    if (not check_internet()):
+        print ("No Internet Connection")
+        exit(0)
     g=search(searchterm)
     print("\nEnter the number of song or video to be downloaded in format <1 video> or <1 music>")
     mode=input()
